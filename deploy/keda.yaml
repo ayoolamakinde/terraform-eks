@@ -1,0 +1,19 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: cron-scaledobject
+  namespace: default
+spec:
+  scaleTargetRef:
+    name: webserver
+  minReplicaCount: 2
+  idleReplicaCount: 1
+  cooldownPeriod: 2
+  pollingInterval: 5
+  triggers:
+  - type: cron
+    metadata:
+      timezone: Canada/Eastern
+      start: 37 * * * *
+      end: 38 * * * *
+      desiredReplicas: "3"
